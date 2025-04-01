@@ -1,0 +1,81 @@
+close all;
+clear all;
+clc;
+
+% Leer la imagen
+A = imread("billie.jpg");
+
+% Tamaño del cristal y la opacidad del efecto
+tamanio_cristal = 15;
+opacidad = 0.7;
+
+% Crear objeto VideoWriter
+v = VideoWriter('cristalizado.avi');
+
+% Configurar propiedades del VideoWriter (opcional)
+v.FrameRate = 10; % Velocidad de fotogramas (fps)
+
+% Abrir el archivo de video para escritura
+open(v);
+
+% Mostrar primero la imagen deformada
+R = pdi_cristal_opaco(A, tamanio_cristal, opacidad);
+imshow(R);
+
+% Pausa para visualizar la imagen inicial
+pause(1);
+
+% Iterar para mostrar y escribir las imágenes
+num_frames = 37; % Reducido en 3 segundos
+incremento_opacidad = opacidad / num_frames; % Incremento para disminuir gradualmente la opacidad
+for k = 1:num_frames
+    % Aplicar el efecto de cristalizado con opacidad decreciente
+    opacidad_actual = max(0, opacidad - incremento_opacidad * k);
+    R = pdi_cristal_opaco(A, tamanio_cristal, opacidad_actual);
+
+    % Mostrar la imagen con el efecto aplicado
+    imshow(R);
+
+    % Pausa para visualizar cada imagen
+    pause(0.1);
+    
+    % Escribir el fotograma en el archivo de video
+    writeVideo(v, R);
+end
+
+% Mostrar la imagen original durante un segundo final
+for i = 1:27 % Reducido en 3 segundos
+    imshow(A);
+
+    % Pausa para visualizar cada imagen
+    pause(0.1);
+    
+    % Escribir el fotograma en el archivo de video
+    writeVideo(v, A);
+end
+
+% Cerrar el archivo de video
+close(v);
+
+function R = pdi_cristal_opaco(A, tamanio_cristal, opacidad)
+    % Obtener dimensiones de la imagen
+    [filas, columnas, ~] = size(A);
+    
+    % Inicializar la imagen de salida
+    R = uint8(zeros(filas, columnas, 3));
+    
+    % Iterar sobre los bloques de la imagen
+    for i = 1:tamanio_cristal:filas
+        for j = 1:tamanio_cristal:columnas
+            % Calcular el valor promedio de cada bloque
+            bloque = A(i:min(i+tamanio_cristal-1,filas), j:min(j+tamanio_cristal-1,columnas), :);
+            valor_promedio = mean(mean(bloque, 1), 2);
+            
+            % Generar un bloque cristalizado con las mismas dimensiones que el bloque original
+            bloque_cristalizado = uint8((1 - opacidad) * double(bloque) + opacidad * double(valor_promedio));
+            
+            % Asignar el bloque cristalizado a la imagen de salida
+            R(i:min(i+tamanio_cristal-1,filas), j:min(j+tamanio_cristal-1,columnas), :) = bloque_cristalizado;
+        end
+    end
+end

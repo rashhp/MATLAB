@@ -1,0 +1,12 @@
+clear all;
+close all;
+I=imread("billie.jpg");
+G=rgb2gray(I);
+R=pdi_estirar_histograma(G);
+figure(1);
+subplot(221);imshow(G);title('Original');
+%O FIGURA EN CASO DE SEPARAR CADA UNA DE LOS IMAGENES E HISTOGRAMAS
+subplot(222);plot(pdi_histograma(G));title('Hist. Ori');
+subplot(223);imshow(R);title('Producto');title('Suma');
+subplot(224);plot(pdi_histograma(R));title('Estirar Histograma');
+%imwrite(R,'imagen_correccion.png');

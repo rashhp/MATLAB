@@ -1,0 +1,6 @@
+function imagen_corregida = correccion_gamma(imagen_original, gamma)
+    
+    imagen_corregida = double(imagen_original).^gamma; %APLICACION DE CORRECCION GAMA PIXEL POR PIXEL      
+    A = 255 / max(max(imagen_corregida)); %AJUSTA EL FACTOR DE ESCALA        
+    imagen_corregida = A .* imagen_corregida; %APLICA EL FACTOR DE ESCALA        
+    imagen_corregida = uint8(imagen_corregida); %CONVIERTE LA IMAGEN CORREGIDA A UNIT8

@@ -1,0 +1,6 @@
+function R=pdi_estirar_histograma(V)
+V=double(V);
+m=min(V(:));
+M=max(V(:));
+
+R=uint8((V-m)*255/(M-m));

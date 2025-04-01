@@ -1,0 +1,16 @@
+clear all;
+close all;
+
+imagen_original = imread('billie.jpg'); %LEE LA IMAGEN ORIGINAL
+gamma = 1.5; %FACTOR GAMA AJUSTABLE
+
+imagen_corregida = double(imagen_original).^gamma; %APLICACION DE CORRECCION GAMA PIXEL POR PIXEL
+A = 255 / max(max(imagen_corregida)); %AJUSTA EL FACTOR DE ESCALA
+imagen_corregida = A .* imagen_corregida; %APLICA EL FACTOR DE ESCALA
+
+imagen_corregida = uint8(imagen_corregida); %CONVIERTE LA IMAGEN CORREGIDA A UNIT8
+
+figure(1);
+subplot(121); imshow(imagen_original); title('Imagen Original');
+
+subplot(122); imshow(imagen_corregida); title('Imagen Corregida');

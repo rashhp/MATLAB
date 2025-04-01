@@ -1,0 +1,36 @@
+close all;
+clear all;
+clc;
+
+% Leer la imagen
+A = imread("billie.jpg");
+
+% Tamaño del pixel
+tamano_pixel = 20;
+
+% Aplicar efecto de pixelado
+R = pdi_pixelado(A, tamano_pixel);
+
+% Mostrar imágenes original y pixelada
+figure(1);
+subplot(121); imshow(A);
+title('Imagen original');
+subplot(122); imshow(R);
+title('Imagen pixelada');
+
+% Función para pixelar la imagen
+function R = pdi_pixelado(A, tamano_pixel)
+    [filas, columnas, ~] = size(A);
+    paso_filas = floor(filas / tamano_pixel);
+    paso_columnas = floor(columnas / tamano_pixel);
+    R = A;
+
+    for i = 1:tamano_pixel:filas
+        for j = 1:tamano_pixel:columnas
+            bloque = A(i:min(i+tamano_pixel-1,filas), j:min(j+tamano_pixel-1,columnas), :);
+            valor_promedio = mean(mean(bloque, 1), 2);
+            valor_promedio = repmat(valor_promedio, size(bloque, 1), size(bloque, 2), 1);
+            R(i:min(i+tamano_pixel-1,filas), j:min(j+tamano_pixel-1,columnas), :) = valor_promedio;
+        end
+    end
+end
