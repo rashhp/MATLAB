@@ -1,0 +1,9 @@
+clear all; 
+close all; 
+I=imread("billie.jpg");
+R=pdi_invertir(I); 
+tic
+figure(1);
+toc
+subplot(121);imshow(I);title('Original');
+subplot(122);imshow(R);title('Resultado');

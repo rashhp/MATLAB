@@ -1,0 +1,13 @@
+function R=pdi_invertir(A)
+    %A es una imagen a color
+    %R es la imagen resultante de invertir A R=255-A
+    [filas,columnas,canales]=size(A); %Obtiene el tamaño de la imagen
+    R=255-A;
+    %for y=1:filas
+        %for x=1: columnas
+            %R(y,x,1)=255-A(y,x,1);
+            %R(y,x,2)=255-A(y,x,2);
+            %R(y,x,3)=255-A(y,x,3);
+        %end
+    %end
+    
