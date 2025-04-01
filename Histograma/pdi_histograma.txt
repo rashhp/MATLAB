@@ -1,0 +1,9 @@
+function Histograma = pdi_histograma(A)
+    %A IMAGEN DE TONOS DE GRIS VER img2gray
+    [filas, columnas] = size(A);  
+    Histograma = zeros(1, 255);     
+    for y = 1:filas %LAS MATRICES SE INDEXAN A PARTIR DE 1
+        for x = 1:columnas
+            Histograma(A(y, x) + 1) = Histograma(A(y, x) + 1) + 1;
+        end
+    end

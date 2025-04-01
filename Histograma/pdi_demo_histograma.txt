@@ -1,0 +1,8 @@
+clear all; %BORRAR VARIABLES DE AMBIENTE
+close all; %CERRAR TODAS LAS VENTANAS GRAFICAS
+I=imread("billie.jpg"); %LEE UNA IMAGEN
+G=rgb2gray(I); %CONVIERTE UNA IMAGEN A COLOR EN TONOS DE GRIS
+H=pdi_histograma(G);
+figure;
+subplot(121);imshow(G);title('Entrada');
+subplot(122);plot(H, '-b');
