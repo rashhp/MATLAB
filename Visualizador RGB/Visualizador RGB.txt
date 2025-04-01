@@ -1,0 +1,11 @@
+clear all; 
+close all;
+I=imread("billie.jpg"); %LEE UNA IMAGEN 
+%imshow(I); %MUESTRA LA IMAGEN
+%clc;
+%whos; %MUESTRA LAS VARIABLES UTILIZADAS EN LOS COMANDOS
+figure(1);
+subplot(141);imshow(I); title("Original");
+subplot(142);imshow(I(:,:,1)); title("Plano R");
+subplot(143);imshow(I(:,:,2)); title("Plano G");
+subplot(144);imshow(I(:,:,3)); title("Plano B");
